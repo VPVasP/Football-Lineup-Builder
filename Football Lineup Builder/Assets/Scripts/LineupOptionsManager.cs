@@ -12,7 +12,8 @@ public class LineupOptionsManager : MonoBehaviour
     [SerializeField] private Transform[] playerIcons = new Transform[11];
     [SerializeField] private Transform[] allPlayers = new Transform[12];
     [SerializeField] private Color[] colors;
-    
+    [SerializeField] private TMP_InputField lineupNameInputField;
+    [SerializeField] private TextMeshProUGUI lineUpName;
     private void Awake()
     {
         fieldColorDropDown.onValueChanged.AddListener(delegate {
@@ -30,6 +31,7 @@ public class LineupOptionsManager : MonoBehaviour
         {
             ChangeJerseyColorDropDown(changeJerseyColorDropDown);
         });
+        lineupNameInputField.onSubmit.AddListener(UpdateLineUpText);
     }
     private void Start()
     {
@@ -345,6 +347,12 @@ public class LineupOptionsManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void UpdateLineUpText(string lineUpNameValue)
+    {
+        lineUpName.text = lineUpNameValue;
+        lineupNameInputField.text = "";
     }
 }
 

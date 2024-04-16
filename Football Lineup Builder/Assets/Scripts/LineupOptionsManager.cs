@@ -6,10 +6,13 @@ public class LineupOptionsManager : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown fieldColorDropDown;
     [SerializeField] private TMP_Dropdown formationDropDown;
-    [SerializeField] private TMP_Dropdown playerCountDown;
+    [SerializeField] private TMP_Dropdown playerCountDownDropDown;
+    [SerializeField] private TMP_Dropdown changeJerseyColorDropDown;
     [SerializeField] private Image fieldImage;
     [SerializeField] private Transform[] playerIcons = new Transform[11];
-    [SerializeField] private Transform[] allPlayers = new Transform[12]; 
+    [SerializeField] private Transform[] allPlayers = new Transform[12];
+    [SerializeField] private Color[] colors;
+    
     private void Awake()
     {
         fieldColorDropDown.onValueChanged.AddListener(delegate {
@@ -19,9 +22,13 @@ public class LineupOptionsManager : MonoBehaviour
         {
             FormationDropDown(formationDropDown);
         });
-        playerCountDown.onValueChanged.AddListener(delegate
+        playerCountDownDropDown.onValueChanged.AddListener(delegate
         {
-            PlayerCountDropDown(playerCountDown);
+            PlayerCountDropDown(playerCountDownDropDown);
+        });
+        changeJerseyColorDropDown.onValueChanged.AddListener(delegate
+        {
+            ChangeJerseyColorDropDown(changeJerseyColorDropDown);
         });
     }
     private void Start()
@@ -305,6 +312,36 @@ public class LineupOptionsManager : MonoBehaviour
                     {
                         allPlayers[i].gameObject.SetActive(false);
                     }
+                }
+                break;
+        }
+    }
+
+    private void ChangeJerseyColorDropDown(TMP_Dropdown dropdown)
+    {
+        int dropDownOption = dropdown.value;
+        switch (dropDownOption)
+        {
+            case 0:
+                Debug.Log("Default Color");
+                foreach (var player in allPlayers)
+                {
+                    player.GetComponent<Image>().color = colors[0];
+                }
+                break;
+
+            case 1:
+                Debug.Log("Green Color");
+                foreach (var player in allPlayers)
+                {
+                    player.GetComponent<Image>().color = colors[1];
+                }
+                break;
+            case 2:
+                Debug.Log("Blue Color");
+                foreach (var player in allPlayers)
+                {
+                    player.GetComponent<Image>().color = colors[2];
                 }
                 break;
         }

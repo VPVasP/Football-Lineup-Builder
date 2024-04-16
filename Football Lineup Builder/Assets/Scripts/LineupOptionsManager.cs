@@ -1,4 +1,3 @@
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +20,9 @@ public class LineupOptionsManager : MonoBehaviour
     }
     private void Start()
     {
+        formationDropDown.value = 0;
         fieldImage.color = Color.white;
+        FormationDropDown(formationDropDown);
     }
     private void FieldDropDown(TMP_Dropdown dropdown)
     {
@@ -89,12 +90,40 @@ public class LineupOptionsManager : MonoBehaviour
                 playerIcons[9].localPosition = new Vector2(190, 200);
                 break;
             case 2:
-                Debug.Log("Yellow");
-                fieldImage.color = Color.yellow;
+                Debug.Log("4-3-3 Defence");
+                //Defenders Positons
+                playerIcons[0].localPosition = new Vector2(215, -200);
+                playerIcons[1].localPosition = new Vector2(85, -200);
+                playerIcons[2].localPosition = new Vector2(-85, -200);
+                playerIcons[3].localPosition = new Vector2(-215, -200);
+
+                //MidFielders Positions
+                playerIcons[4].localPosition = new Vector2(-190, 0);
+                playerIcons[5].localPosition = new Vector2(0,-100);
+                playerIcons[6].localPosition = new Vector2(190, 0);
+
+                //Attackers Positions
+                playerIcons[7].localPosition = new Vector2(-190, 200);
+                playerIcons[8].localPosition = new Vector2(-0, 200);
+                playerIcons[9].localPosition = new Vector2(190, 200);
                 break;
-            case 3:
-                Debug.Log("Blue");
-                fieldImage.color = Color.blue;
+            default:
+                Debug.Log("4-4-2");
+                //Defenders Positons
+                playerIcons[0].localPosition = new Vector2(215, -200);
+                playerIcons[1].localPosition = new Vector2(85, -200);
+                playerIcons[2].localPosition = new Vector2(-85, -200);
+                playerIcons[3].localPosition = new Vector2(-215, -200);
+
+                //MidFielders Positions
+                playerIcons[4].localPosition = new Vector2(-190, 0);
+                playerIcons[5].localPosition = new Vector2(-60, 0);
+                playerIcons[6].localPosition = new Vector2(60, 0);
+
+                //Attackers Positions
+                playerIcons[7].localPosition = new Vector2(190, 0);
+                playerIcons[8].localPosition = new Vector2(-100, 200);
+                playerIcons[9].localPosition = new Vector2(100, 200);
                 break;
         }
     }

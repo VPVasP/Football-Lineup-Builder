@@ -24,7 +24,7 @@ public class DownloadImage : MonoBehaviour
     }
     public void CaptureScreenshot()
     {
-       #if UNITY_EDITOR
+#if UNITY_EDITOR
         saveScreenshotPanel.SetActive(false);
         UpdateNameInputField();
         UpdatePathInputField();
@@ -46,25 +46,34 @@ public class DownloadImage : MonoBehaviour
             Debug.Log("Unity Editor");
         }
 #else
-            saveScreenshotPanel.SetActive(false);
-        UpdateNameInputField();
-        UpdatePathInputField();
-        string customFileName = customScreenshotName + ".png";
-        string customFilePath = Path.Combine(customScreenshotPath, customFileName);
-        Debug.Log(customFilePath);
+    saveScreenshotPanel.SetActive(false);
+    UpdateNameInputField();
+    UpdatePathInputField();
+    string customFileName = customScreenshotName + ".png";
+    string customFilePath = Path.Combine(customScreenshotPath, customFileName);
 
-        if (!Directory.Exists(customScreenshotPath))
-        {
-            Directory.CreateDirectory(customScreenshotPath);
-            ScreenCapture.CaptureScreenshot(customFilePath);
-            Debug.Log("Path did not exist but has been created! Save the screenshot again.");
-            Debug.Log("Build Exe");
-        }
-        else
-        {
-            ScreenCapture.CaptureScreenshot(customFilePath);
-            Debug.Log("Build Exe");
-        }
+    customFilePath = customFilePath.Replace("/", "\\");
+    Debug.Log("Custom File Path: " + customFilePath);
+
+    if (!Directory.Exists(customScreenshotPath))
+    {
+        Directory.CreateDirectory(customScreenshotPath);
+    }
+
+ 
+    Texture2D screenshotTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+    
+
+    screenshotTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+    screenshotTexture.Apply();
+
+    
+    byte[] bytes = screenshotTexture.EncodeToPNG();
+    
+    
+    File.WriteAllBytes(customFilePath, bytes);
+    
+    Debug.Log("Build Exe");
 #endif
     }
 
@@ -77,4 +86,5 @@ public class DownloadImage : MonoBehaviour
         customScreenshotPath = PathNameInputField.text;
 
     }
-}
+
+    }

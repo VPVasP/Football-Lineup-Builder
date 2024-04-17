@@ -47,8 +47,8 @@ public class DownloadImage : MonoBehaviour
             Debug.Log("Unity Editor");
         }
 #else
-        // Use coroutine to delay the code execution
-        StartCoroutine(DelayedScreenshotCapture());
+       
+         DelayScreenshotForExe();
 #endif
     }
 

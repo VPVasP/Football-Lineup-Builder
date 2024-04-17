@@ -2,6 +2,7 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 public class DownloadImage : MonoBehaviour
 {
     private string customScreenshotPath = "Assets/Screenshots/";
@@ -46,35 +47,39 @@ public class DownloadImage : MonoBehaviour
             Debug.Log("Unity Editor");
         }
 #else
-    saveScreenshotPanel.SetActive(false);
-    UpdateNameInputField();
-    UpdatePathInputField();
-    string customFileName = customScreenshotName + ".png";
-    string customFilePath = Path.Combine(customScreenshotPath, customFileName);
-
-    customFilePath = customFilePath.Replace("/", "\\");
-    Debug.Log("Custom File Path: " + customFilePath);
-
-    if (!Directory.Exists(customScreenshotPath))
-    {
-        Directory.CreateDirectory(customScreenshotPath);
+        // Use coroutine to delay the code execution
+        StartCoroutine(DelayedScreenshotCapture());
+#endif
     }
 
- 
-    Texture2D screenshotTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
-    
+    private IEnumerator DelayScreenshotForExe()
+    {
+        yield return new WaitForSeconds(0.1f);
 
-    screenshotTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
-    screenshotTexture.Apply();
+        saveScreenshotPanel.SetActive(false);
+        UpdateNameInputField();
+        UpdatePathInputField();
+        string customFileName = customScreenshotName + ".png";
+        string customFilePath = Path.Combine(customScreenshotPath, customFileName);
 
-    
-    byte[] bytes = screenshotTexture.EncodeToPNG();
-    
-    
-    File.WriteAllBytes(customFilePath, bytes);
-    
-    Debug.Log("Build Exe");
-#endif
+        customFilePath = customFilePath.Replace("/", "\\");
+        Debug.Log("Custom File Path: " + customFilePath);
+
+        if (!Directory.Exists(customScreenshotPath))
+        {
+            Directory.CreateDirectory(customScreenshotPath);
+        }
+
+        Texture2D screenshotTexture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+
+        screenshotTexture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        screenshotTexture.Apply();
+
+        byte[] bytes = screenshotTexture.EncodeToPNG();
+
+        File.WriteAllBytes(customFilePath, bytes);
+
+        Debug.Log("Build Exe");
     }
 
     private void UpdateNameInputField()
@@ -87,4 +92,4 @@ public class DownloadImage : MonoBehaviour
 
     }
 
-    }
+  }

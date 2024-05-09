@@ -13,4 +13,8 @@
 
 - Download the image as .png and save it inside the exe folder.
 
-Created in Unity Engine.
+- You can try the game on Itch.io: (https://itchiovp.itch.io/football-lineup-builder)
+
+![Screenshots](https://img.itch.zone/aW1hZ2UvMjY1MzI5MS8xNTgwOTIyMy5wbmc=/original/i%2FHjhO.png)
+![Screenshots](https://img.itch.zone/aW1hZ2UvMjY1MzI5MS8xNTgwOTIyNC5wbmc=/original/Ttogfk.png)
+![Screenshots](https://img.itch.zone/aW1hZ2UvMjY1MzI5MS8xNTgwOTIyNi5wbmc=/original/2cgK9L.png)
